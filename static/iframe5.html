@@ -1,0 +1,76 @@
+<style>
+	.select {
+		display: inline-block;
+		width: 300px;
+		position: relative;
+		vertical-align: middle;
+		padding: 0;
+		overflow: hidden;
+		background-color: #fff;
+		color: #555;
+		border: 1px solid #aaa;
+		text-shadow: none;
+		border-radius: 4px;
+		transition: box-shadow 0.25s ease;
+		z-index: 2;
+	}
+
+	.select:hover {
+		box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+	}
+
+	.select:before {
+		content: "";
+		position: absolute;
+		width: 0;
+		height: 0;
+		border: 10px solid transparent;
+		border-top-color: #ccc;
+		top: 14px;
+		right: 10px;
+		cursor: pointer;
+		z-index: -2;
+	}
+
+	.select select {
+		cursor: pointer;
+		padding: 10px;
+		width: 100%;
+		border: none;
+		background: transparent;
+		background-image: none;
+		-webkit-appearance: none;
+		-moz-appearance: none;
+	}
+
+	.select select:focus {
+		outline: none;
+	}
+</style>
+<div class="select" style="text-align:center">
+	<select name="map" id="map" onchange="selectMap()">
+		<option value="map1">广州租房分布图</option>
+		<option value="map2">广州房租柱状图</option>
+		<option value="map3">广州工资柱状图</option>
+		<option value="map4">广州工作分布图</option>
+	</select>
+</div>
+<!-- <p>您可通过选择以下分布图进行地图可视化</p> -->
+<br>
+<br>
+
+<iframe src="https://maplab.amap.com/share/mapv/3d448de582980b3931ca8eb94b8568e9" id="iframe" frameborder='0px'
+	style="width:100%;height:80%"></iframe>
+<script>
+	var selectMap = function () {
+		var mapValue = document.getElementById("map").value;
+		if (mapValue == "map1") {
+			document.querySelector("#iframe").src = "https://maplab.amap.com/share/mapv/3d448de582980b3931ca8eb94b8568e9";
+		}
+		else if (mapValue == "map2") { document.querySelector("#iframe").src = "https://maplab.amap.com/share/mapv/52340d3880249c28f5a1eda53c8cea52"; }
+		else if (mapValue == "map3") { document.querySelector("#iframe").src = "https://maplab.amap.com/share/mapv/4c69535da9ce3992b57ea3081807a852"; }
+		else {
+			document.querySelector("#iframe").src = "https://maplab.amap.com/share/mapv/8318a83488cc1c7ed6e06f78bcc0a03e"
+		}
+	}
+</script>

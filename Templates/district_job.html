@@ -1,0 +1,79 @@
+<style>
+        /* .noUi-tooltip {
+          display: none;
+        }
+        .noUi-active .noUi-tooltip {
+          display: block;
+        } */
+        #slider-handles {
+            margin-top: 40px;
+        }
+</style>
+      
+<div id="app03">
+    <!-- 修改：标题 -->
+    <!-- <div>
+        <h3>广州市各区平均工资情况</h3>
+        <p>目前已选择白云区，越秀区，花都区，您可以通过以下控件选择广州市的其他区</p>
+    </div> -->
+    <!-- 修改placeholder，@input-->
+  <vue-multiselect
+    v-model="multiselect_value"
+    :options="multiselect_options"
+    placeholder="Select a district"
+    :multiple="true"
+    @input="getTeamData"
+  ></vue-multiselect>
+
+  <hr/>
+  <!-- 可视化，跟py一样 -->
+  <div id="vis1"></div>
+</div>
+
+<script>
+  var app = new Vue({
+    el: "#app03",
+    components: {
+      "vue-multiselect": VueMultiselect.default
+    },
+    data: {
+      // 可修改：数据初始化
+      multiselect_value: ["白云区","越秀区","花都区"],
+      multiselect_options: [],
+      // 可修改：数据初始化
+
+      // 备注：slider是用于操控滑动功能的
+      slider: null
+    },
+    methods: {
+
+      // 备注：与input绑定的函数，就是一旦用户选择好之后可呈现的功能
+      getTeamData() {
+          // 备注：不与上面的this混淆
+        var that = this;
+        // 备注：把用户选择的范围存储成变量
+        
+        axios // 可修改：修改网址的后缀名，和server.python里一样
+          .get("/district_job", {
+            params: {
+              district: that.multiselect_value,
+            }
+          })
+          .then(function(response) {
+              // 可修改：该页面对应到index里div行的id，一旦修改就有主要的文字显示啦
+            that.multiselect_options = response.data.district;
+            vegaEmbed("#vis1", response.data.figure, { mode: "vega-lite" }).then(function(data) {
+              data.view.addEventListener("click", that.onViewClicked);
+            });
+          });
+      },
+      onViewClicked(event, item) {
+        if (item && typeof item != "undefined") console.log(item.datum);
+      }
+    },
+    mounted() {
+      this.getTeamData()
+    }
+  });
+</script>
+      

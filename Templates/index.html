@@ -1,0 +1,250 @@
+<html>
+
+<head>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega@5"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-lite@3"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm//vega-embed@4"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+  <script src="https://unpkg.com/vue-multiselect@2.1.0"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/13.1.5/nouislider.min.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/vue-multiselect@2.1.0/dist/vue-multiselect.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/13.1.5/nouislider.min.css" />
+  <link href="static/style.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+    crossorigin="anonymous">
+
+  <title>筑梦广州</title>
+  <style>
+    .tab-content {
+      margin-top: 1em;
+    }
+
+    .container {
+      background-color: black;
+      color: white;
+    }
+
+    .wrapper{
+      margin: 2em;
+      font:white;
+    }
+    
+    .navbar-brand {
+      font-size: 250%;
+    }
+  
+    div.tab-pane fde show {
+      position: relative;
+    }
+
+    div.chart {
+      position: relative;
+    }
+
+    div.detail {
+      width: 46%;
+      float: right;
+      position: relative;
+      margin-top: -25% ;
+
+    }
+
+
+  </style>
+
+</head>
+
+<body>
+  <header id="header">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <img class="logo" src="{{url_for('static', filename='GZ2.jpg')}}">
+      <a class="navbar-brand" href="/">筑梦广州</a>
+
+      <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item">
+              <a class="nav-link disabled">数据分析页</a>
+            </li>
+        </ul>
+        <!-- <ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="margin-right:auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/">回到首页</a>
+          </li>
+        </ul> -->
+      </div>
+    </nav>
+  </header>
+<main>
+  <div id="new">
+    <div class="wrapper">
+      <ul class="nav nav-tabs" id="myTab" role="tablist" style="margin:40px 0 0 0">
+        <li class="nav-item">
+          <a class="nav-link active" style="font-size:100%" id="map-tab" data-toggle="tab" href="#map" role="tab" aria-controls="map"
+            aria-selected="false">地图可视化</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="font-size:100%" id="district_job-tab" data-toggle="tab" href="#district_job" role="tab" aria-controls="district_job"
+            aria-selected="false">各区平均工资图</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" style="font-size:100%" id="job_distance-tab" data-toggle="tab" href="#job_distance" role="tab" aria-controls="job_distance"
+              aria-selected="false">工资和距市中心距离关系图</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="font-size:100%" id="district_house-tab" data-toggle="tab" href="#district_house" role="tab"
+            aria-controls="district_house" aria-selected="false">各区平均房租柱状图</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" style="font-size:100%" id="house_distance-tab" data-toggle="tab" href="#house_distance" role="tab"
+              aria-controls="house_distance" aria-selected="false">房租和距市中心距离关系图</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" style="font-size:100%" id="wordcloud-tab" data-toggle="tab" href="#wordcloud" role="tab"
+            aria-controls="wordcloud" aria-selected="false">职位词云图</a>
+        </li>
+        <!-- 修改处：href，aria-controls，文字 -->
+      </ul>
+
+      <div class="tab-content" id="myTabContent">
+        <!-- 修改处，插入独立的div，修改id，aria-labelledby，包含页-->
+        <div  class="tab-pane fade show " id="district_job" role="tabpanel" aria-labelledby="district_job-tab">
+          <div class="chart">{% include "district_job.html" %}</div>
+          <div class="detail" style="margin-top:-35%; margin-right:-2%">
+            <ul>
+                <h1>工资面积图</h1>
+                <br>
+              <li>通过该图可以得到广州各区的平均工资高低对比。</li>
+              <li>大面积图横坐标代表区的名称，大面积图纵坐标代表区的平均工资。</li>
+              <li>点击图标上方的输入框选择区域，图标将会动态生成所选择区域的平均工资柱状显示。</li>
+              <li>点击图表右上角控件可以将图表保存为图片或下载其SVG文件等。</li>
+              <li>天河区平均工资最高，约为每月9000元。</li>
+              <li>从化区平均工资最低，约为每月6600元。</li>
+              <li>最高平均工资与最低平均工资相差约2400元。</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tab-pane fade show" id="job_distance" role="tabpanel" aria-labelledby="job_dinstance-tab">
+            <div class="chart">{% include "job_distance.html" %}</div>
+            <div class="detail" style="width: 30%; margin-top:-34%; margin-right:4%">
+                <ul>
+                    <h1>工资散点图</h1>
+                    <br>
+                  <li>通过该图可以得到广州工资与工作地点距市中心距离的关系。</li>
+                  <li>散点图横坐标代表工作地点距离市中心的距离，散点图纵坐标代表工作工资。</li>
+                  <li>不同颜色的散点代表不同区域。</li>
+                  <li>点击图表右上角控件可以将图表保存为图片或下载其SVG文件等。</li>
+                  <li style="color:red">此外还可以用鼠标拉动自选框看具体情况。</li>
+                  <li>离市中心越近，工作较多，离市中心越远则工作机会越少。</li>
+                  <li>高薪工作（工资>50000元）机会在距市中心24千米范围内分布更多</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="tab-pane fade show" id="district_house" role="tabpanel" aria-labelledby="district_house-tab">
+          <div class="chart">{% include "district_house.html" %}</div>
+          <div class="detail" style="margin-top:-30% ">
+            <ul>
+                <h1>房租柱状图</h1>
+                <br>
+              <li>通过该图可以得到广州各区的平均房租价格高低对比</li>
+              <li>柱状图横坐标代表区的名称，柱状图纵坐标代表区的平均房租价格。</li>
+              <li>点击图标上方的输入框选择区域，图标将会动态生成所选择区域的平均工资柱状显示。</li>
+              <li>点击图表右上角控件可以将图表保存为图片或下载其SVG文件等。</li>
+
+              <li>天河区平均房租价格最高，约为每月4800元。</li>
+              <li>从化区、南沙区和花都区平均房租价格最低，约为每月900元.</li>
+              <li>最高平均房租价格与最低平均房租价格相差约2900元。</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tab-pane fade show" id="house_distance" role="tabpanel" aria-labelledby="house_dinstance-tab">
+            <div class="chart">{% include "house_distance.html" %}</div>
+            <div class="detail">
+                <ul>
+                  <h1>房租气泡图</h1>
+                  <br>
+                  <li>通过该图可以得到广州房租与住房地点距市中心距离的关系</li>
+                  <li>散点图横坐标代表房源地点距离市中心的距离，散点图纵坐标代表房租价格。</li>
+                  <li>散点图中散点大小代表距离市中心的距离，散点越大代表离市中心距离越大，越小则越远。</li>
+                  <li>点击图表右上角控件可以将图表保存为图片或下载其SVG文件等。</li>
+                  <li>离市中心越近，房源较多。</li>
+                  <li>房租较高的房源几乎都分布在距市中心10千米以内。</li>
+                </ul>
+            </div>
+        </div>
+  <!-- 1. 地图 -->
+        <div class="tab-pane fade show active" id="map" role="tabpanel" aria-labelledby="map-tab">
+            <div class="chart">{% include "map.html" %}</div>
+            <div class="detail">
+                
+                <ul>
+                    <h1 style="color:white">地图可视化</h1>
+                    <br>
+                  <li style="color:white">租房分布图显示可租房源在广州地图上的分布情况</li>
+                  <li style="color:white">房租柱状图显示分布在广州地图上的房租价格高低</li>
+                  <li style="color:white">工资柱状图显示分布广州地图上的工作工资高低</li>
+                  <li style="color:white">工作分布图显示工作地点在广州地图上的分布情况</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="tab-pane fade show" id="wordcloud" role="tabpanel" aria-labelledby="wordcloud-tab">
+          <div class="chart">{% include "wordcloud.html" %}</div>
+          <div class="detail">
+              <ul>
+                  <h1>关键词词云</h1>
+                  <br>
+                <li>通过该图可以得到广州各区工作机会所涉及的关键词的词云图</li>
+                <li>关键词字号越大，说明在区内该工作岗位的需求最大</li>
+                <li>点击图标上方的下拉框选择区域，图标将会动态生成所选择区域的工作关键词显示。</li>
+              </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</main>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+
+</body>
+
+<footer id="about">
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <a class="navbar-brand" href="#" style="font-size:120%">关于我们</a>
+
+        
+
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo04">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#" style="font-size:100%">“筑梦广外”网站著作权属广东外语外贸大学英语语言文化学院2016级语言信息管理班级“信管秃头小分队”,一切解释权归其所有。联系地址：广东省广州市白云区白云大道北2号广东外语外贸大学。指导老师：严恒斌。</a>
+                </li>
+            </ul>
+            <img class="logo" src="{{url_for('static', filename='GZ2.jpg')}}">
+            <!-- <a class="navbar-brand" href="#header">回到首页</a> -->
+
+        </div>
+    </nav>
+    
+</footer>
+</html>

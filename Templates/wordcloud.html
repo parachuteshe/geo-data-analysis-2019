@@ -1,0 +1,93 @@
+<style>
+        img{
+            margin:-20px 0 0 0;
+        }
+        .select {
+            display: inline-block;
+
+            width: 200px;
+            position: relative;
+            vertical-align: middle;
+            padding: 0;
+            overflow: hidden;
+            background-color: #fff;
+            color: #555;
+            border: 1px solid #aaa;
+            text-shadow: none;
+            border-radius: 4px;	
+            transition: box-shadow 0.25s ease;
+            z-index: 2;
+        }
+     
+        .select:hover {
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+        }
+     
+        .select:before {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 0;
+            border: 10px solid transparent;
+            border-top-color: #ccc;
+            top: 14px;
+            right: 10px;
+            cursor: pointer;
+            z-index: -2;
+        }
+        .select select {
+            cursor: pointer;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            background: transparent;
+            background-image: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+        }
+     
+        .select select:focus {
+            outline: none;
+        }
+    
+    </style>
+
+<span display:inline-block>
+    <p display:inline-block>请在这里选择您想看的区域</p>
+    <div class="select" >
+        <select name="img" id="imgcloud" onchange="selectImg()">
+            <option value="ch">从化</option>
+            <option value="hd">花都</option>
+            <option value="yx">越秀</option>
+            <option value="by">白云</option>
+            <option value="zc">增城</option>
+            <option value="hp">黄埔</option>
+            <option value="ns">南沙</option>
+            <option value="th">天河</option>
+            <option value="lw">荔湾</option>
+            <option value="hz">海珠</option>
+            <option value="py">番禺</option>
+        </select>
+    </div>
+</span>
+
+<br>
+<br>
+
+<img src="{{url_for('static', filename='从化词云.jpg')}}" id="imgcloud2"style="width:600px;height:400px;">
+<script>
+var selectImg=function(){
+    var imgValue=document.getElementById("imgcloud").value;
+    if (imgValue == "hd"){document.querySelector("#imgcloud2").setAttribute("src","{{url_for('static', filename='花都词云.jpg')}}")}
+    else if (imgValue == "yx") { document.querySelector("#imgcloud2").setAttribute("src", "{{url_for('static', filename='越秀词云.jpg')}}") }
+    else if (imgValue == "by") { document.querySelector("#imgcloud2").setAttribute("src", "{{url_for('static', filename='白云词云.jpg')}}") }
+    else if (imgValue == "zc") { document.querySelector("#imgcloud2").setAttribute("src", "{{url_for('static', filename='增城词云.jpg')}}") }
+    else if (imgValue == "hp") { document.querySelector("#imgcloud2").setAttribute("src", "{{url_for('static', filename='黄埔词云.jpg')}}") }
+    else if (imgValue == "ns") { document.querySelector("#imgcloud2").setAttribute("src", "{{url_for('static', filename='南沙词云.jpg')}}") }
+    else if (imgValue == "th") { document.querySelector("#imgcloud2").setAttribute("src", "{{url_for('static', filename='天河词云.jpg')}}") }
+    else if (imgValue == "lw") { document.querySelector("#imgcloud2").setAttribute("src", "{{url_for('static', filename='荔湾词云.jpg')}}") }
+    else if (imgValue == "hz") { document.querySelector("#imgcloud2").setAttribute("src", "{{url_for('static', filename='海珠词云.jpg')}}") }
+    else if (imgValue == "py") { document.querySelector("#imgcloud2").setAttribute("src", "{{url_for('static', filename='番禺词云.jpg')}}") }
+    else{document.querySelector("#imgcloud2").setAttribute("src", "{{url_for('static', filename='从化词云.jpg')}}")}
+}
+</script>

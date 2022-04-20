@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>筑梦广州</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <link href="static/style.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript">
+        function scrollWindow() {
+            window.scrollTo(100, 125)
+        }
+        window.onload = scrollWindow;
+    </script>
+</head>
+
+<body>
+
+    <header id="header">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <img class="logo" src="{{url_for('static', filename='GZ2.jpg')}}">
+            <a class="navbar-brand" href="#">筑梦广州</a>
+
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">主页<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url_for('static', filename='用户说明书.docx')}}">使用手册</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/index">图表数据</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">关于我们</a>
+                    </li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-secondary my-2 my-sm-0">Search</button>
+                </form>
+            </div>
+        </nav>
+    </header>
+    <main>
+
+        <div id="main">
+            <div id="submain">
+                <div id="title">作为面向应届毕业大学生的数据分析项目，“筑梦广州”通过分析工作招聘与房屋中介网站，得到的数据图表可帮助大学生了解目前广州各区的平均房价与工作情况，更好地计划好未来的工作与住房安排。</div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <footer id="about">
+
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <a class="navbar-brand" href="#">关于我们</a>
+
+            
+
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo04">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#" style="font-size:100%">“筑梦广外”网站著作权属广东外语外贸大学英语语言文化学院2016级语言信息管理班级“信管秃头小分队”,一切解释权归其所有。联系地址：广东省广州市白云区白云大道北2号广东外语外贸大学。指导老师：严恒斌。</a>
+                    </li>
+                </ul>
+                <img class="logo" src="{{url_for('static', filename='GZ2.jpg')}}">
+                <!-- <a class="navbar-brand" href="#header">回到首页</a> -->
+
+            </div>
+        </nav>
+        
+    </footer>
+    <script>
+        var searchbtn = document.querySelector("#search");
+        // searchbtn.onclick = function () {
+        //     alert("抱歉此功能正在开发中。：-（");
+        // }
+    </script>
+
+</body>
+
+</html>

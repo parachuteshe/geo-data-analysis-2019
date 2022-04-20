@@ -1,0 +1,36 @@
+<style>
+  /* .noUi-tooltip {
+      display: none;
+    }
+    .noUi-active .noUi-tooltip {
+      display: block;
+    } */
+  #slider-handles {
+    margin-top: 40px;
+  }
+</style>
+
+<div id="app04">
+
+</div>
+
+<script>
+  var app = new Vue({
+    el: "#app04",
+    
+    methods: {
+      getJobData() {
+        axios
+          .get("/job_distance")
+          .then(function (response) {
+            vegaEmbed("#app04", response.data.figure, { mode: "vega-lite" })
+          });
+      },
+    },
+    mounted() {
+      this.getJobData();
+      },
+
+    
+  });
+</script>
